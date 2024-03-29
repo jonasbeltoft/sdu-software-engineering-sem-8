@@ -1,6 +1,37 @@
+html {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+:root {
+    --color1: #85ae78;
+    --color2: #88b04b;
+    --font-color: #3d3c3c;
+    --color3: #eee5cf;
+}
+
 body {
     margin: 0;
     max-width: 100vw;
+    height: 100%;
+    font-family: "Oswald", sans-serif;
+    color: var(--font-color);
+}
+
+.header {
+    background: transparent linear-gradient(90deg, var(--color1) 0%, var(--color2) 100%) 0 0 no-repeat padding-box;
+    height: 50px;
+    font-size: 20px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+.header p {
+    margin: 0;
+    color: white;
+    font-weight: bold;
 }
 
 pre, code {
@@ -8,10 +39,15 @@ pre, code {
 }
 
 #pageContainer {
-    display: flex;
     width: 100%;
     max-width: 100vw;
     height: 100vh;
+    overflow: hidden;
+}
+
+.flex-box {
+    display: flex;
+    height: calc(100% - 50px);
 }
 
 #blocklyDiv {
