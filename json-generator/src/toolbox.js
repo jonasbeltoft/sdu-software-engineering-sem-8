@@ -16,6 +16,20 @@ export const toolbox = {
   'kind': 'categoryToolbox',
   'contents': [
     {
+      "kind": "category",
+      "name": "Custom Blocks",
+      "contents": [
+        {
+          "kind": "block",
+          "type": "add_text"
+        },
+        {
+          "kind": "block",
+          "type": "run_code"
+        }
+      ]
+    },
+    {
       'kind': 'category',
       'name': 'Logic',
       'categorystyle': 'logic_category',
@@ -512,6 +526,14 @@ export const toolbox = {
                 'type': 'colour_picker',
                 'fields': {
                   'COLOUR': '#aa00cc',
+                },
+              },
+            },
+            'SAMPLE_RATE': {
+              'shadow': {
+                'type': 'math_number',
+                'fields': {
+                  'NUM': '10',
                 },
               },
             },

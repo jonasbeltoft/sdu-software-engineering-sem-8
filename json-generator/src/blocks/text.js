@@ -12,7 +12,7 @@ import * as Blockly from 'blockly/core';
 // own custom blocks.
 const addText = {
   'type': 'add_text',
-  'message0': 'Add text %1 with color %2',
+  'message0': 'Add text %1 with color %2 and sample rate %3',
   'args0': [
     {
       'type': 'input_value',
@@ -23,6 +23,28 @@ const addText = {
       'type': 'input_value',
       'name': 'COLOR',
       'check': 'Colour',
+    },
+    {
+      'type': 'input_value',
+      'name': 'SAMPLE_RATE',
+      'check': 'Number',
+    },
+  ],
+  'previousStatement': null,
+  'nextStatement': null,
+  'colour': 160,
+  'tooltip': '',
+  'helpUrl': '',
+};
+
+const runCode = {
+  'type': 'run_code',
+  'message0': 'Run code %1',
+  'args0': [
+    {
+      'type': 'input_value',
+      'name': 'CODE',
+      'check': 'String',
     },
   ],
   'previousStatement': null,
@@ -36,4 +58,4 @@ const addText = {
 // This does not register their definitions with Blockly.
 // This file has no side effects!
 export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray(
-    [addText]);
+    [addText, runCode]);
