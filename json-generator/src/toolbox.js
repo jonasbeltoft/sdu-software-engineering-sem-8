@@ -17,16 +17,39 @@ export const toolbox = {
   'contents': [
     {
       "kind": "category",
-      "name": "Custom Blocks",
+      "name": "Esp Building Blocks",
+      'colour': "#85ae78",
       "contents": [
         {
-          "kind": "block",
-          "type": "add_text"
+          'kind': 'block',
+          'type': 'esp_configuration',
+          'inputs': {
+            'SAMPLE_RATE': {
+              'shadow': {
+                'type': 'math_number',
+                'fields': {
+                  'NuM': 10,
+                },
+              },
+            },
+            'BATCH_SIZE': {
+              'shadow': {
+                'type': 'math_number',
+                'fields': {
+                  'NUM': 10,
+                },
+              },
+            },
+            'NO_SENSORS': {
+              'shadow': {
+                'type': 'math_number',
+                'fields': {
+                  'NUM': 10,
+                },
+              },
+            },
+          },
         },
-        {
-          "kind": "block",
-          "type": "run_code"
-        }
       ]
     },
     {
@@ -505,36 +528,6 @@ export const toolbox = {
             'TEXT': {
               'shadow': {
                 'type': 'text',
-              },
-            },
-          },
-        },
-        {
-          'kind': 'block',
-          'type': 'add_text',
-          'inputs': {
-            'TEXT': {
-              'shadow': {
-                'type': 'text',
-                'fields': {
-                  'TEXT': 'abc',
-                },
-              },
-            },
-            'COLOR': {
-              'shadow': {
-                'type': 'colour_picker',
-                'fields': {
-                  'COLOUR': '#aa00cc',
-                },
-              },
-            },
-            'SAMPLE_RATE': {
-              'shadow': {
-                'type': 'math_number',
-                'fields': {
-                  'NUM': '10',
-                },
               },
             },
           },

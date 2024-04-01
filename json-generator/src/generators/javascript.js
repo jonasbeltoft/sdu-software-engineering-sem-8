@@ -15,27 +15,27 @@ window.mqttClient = mqttClient;
 
 export const forBlock = Object.create(null);
 
-forBlock['add_text'] = function (block, generator) {
-  const text = generator.valueToCode(block, 'TEXT', Order.NONE) || "''";
-  const color = generator.valueToCode(block, 'COLOR', Order.ATOMIC) || "'#ffffff'";
+forBlock['esp_configuration'] = function (block, generator) {
   const sample_rate = generator.valueToCode(block, 'SAMPLE_RATE', Order.NONE) || 1000;
+  const batch_size = generator.valueToCode(block, 'BATCH_SIZE', Order.NONE) || 1000;
+  const no_sensors = generator.valueToCode(block, 'NO_SENSORS', Order.NONE) || 1000;
 
-  const addTextFunctionName = generator.provideFunction_(
-      'addText',
-      `function addText(text, color, sample_rate) {
+  const changeOutputForEsg = generator.provideFunction_(
+      'espConfiguration',
+      `function espConfiguration(sample_rate, batch_size, no_sensors) {
       // Add text to the output area.
-      const output = "{sample_rate:" + sample_rate + ", text:" + text +", color:" + color + "}";
+      const output = "{sample_rate:" + sample_rate + ", batch_size:" + batch_size +", no_sensors:" + no_sensors + "}";
       
       const outputDiv = document.getElementById('output');
       const textEl = document.createElement('p');
       textEl.innerText = output;
-      textEl.style.color = color;
+      textEl.style.color = 'green';
       outputDiv.appendChild(textEl);
     }`
   );
 
   // Generate the function call for this block.
-  const code = `${addTextFunctionName}(${text}, ${color}, ${sample_rate});\n`;
+  const code = `${changeOutputForEsg}(${sample_rate}, ${batch_size}, ${no_sensors});\n`;
   return code;
 };
 
@@ -44,9 +44,4 @@ forBlock['mqtt_subscribe'] = function (block, generator) {
 
   const code = `mqttClient.subscribe(${topic});\n`;
   return code;
-};
-
-forBlock['run_code'] = function (block, generator) {
-  const code = generator.valueToCode(block, 'CODE', Order.NONE) || "''";
-  return `${code};\n`;
 };
