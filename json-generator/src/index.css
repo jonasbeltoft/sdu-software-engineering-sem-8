@@ -63,13 +63,30 @@ pre, code {
     flex: 0 0 400px;
     overflow: auto;
     margin: 1rem;
+    justify-content: space-between;
+}
+
+.bottom-half {
+    height: 150px;
+}
+
+#publish-btn {
+    background-color: var(--color1);
+    color: white;
+    width: 100%;
+    border: none;
+    font-weight: bold;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
 #generatedCode {
-    height: 50%;
+    height: 70%;
     background-color: rgb(247, 240, 228);
 }
 
 #output {
-    height: 50%;
+    height: 30%;
 }

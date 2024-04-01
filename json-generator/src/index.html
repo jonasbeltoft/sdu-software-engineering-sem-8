@@ -14,8 +14,18 @@
            </div>
            <div class="flex-box">
                <div id="outputPane">
-                   <pre id="generatedCode"><code></code></pre>
-                   <div id="output"></div>
+                   <div style="height: 80%">
+                       <pre id="generatedCode"><code></code></pre>
+                       <div>
+                           <h4>Message you're publishing:</h4>
+                           <div id="output"></div>
+                       </div>
+                   </div>
+                   <div class="bottom-half">
+                       <h4>MQTT Subscription value:</h4>
+                       <p id="subscription-output"><i>Output goes here</i></p>
+                       <button id="publish-btn">Publish</button>
+                   </div>
                </div>
                <div id="blocklyDiv"></div>
            </div>

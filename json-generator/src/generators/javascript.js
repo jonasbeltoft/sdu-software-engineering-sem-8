@@ -3,7 +3,12 @@ import MqttClient from '../mqttFolder/mqttService.js'; // Import the MqttClient 
 
 // Create an instance of MqttClient and connect to the MQTT broker
 const mqttClient = new MqttClient();
-mqttClient.connect('ws://localhost:9001');
+mqttClient.connect('ws://localhost:9001')
+    .then(() => {
+      return mqttClient.subscribe('test/topic');
+    }).catch((error) => {
+      console.error('Error connecting to MQTT broker:', error);
+    });
 
 window.mqttClient = mqttClient;
 
@@ -26,9 +31,6 @@ forBlock['add_text'] = function (block, generator) {
       textEl.innerText = output;
       textEl.style.color = color;
       outputDiv.appendChild(textEl);
-
-      // Publish a message when text is added
-      window.mqttClient.publish('test/topic', output);
     }`
   );
 

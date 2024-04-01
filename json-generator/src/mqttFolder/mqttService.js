@@ -60,6 +60,12 @@ class MqttClient {
       this.client.on('message', (topic, message) => {
         // message is a Buffer, convert it to a string
         console.log('Received message:', message.toString(), 'on topic:', topic);
+
+        // message is a Buffer, convert it to a string
+        const messageStr = message.toString();
+        const subscriptionOutputDiv = document.getElementById('subscription-output');
+        // Update the content of the div
+        subscriptionOutputDiv.innerText = messageStr;
       });
     } else {
       console.log('Not connected to MQTT broker');

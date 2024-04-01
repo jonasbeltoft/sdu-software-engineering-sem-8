@@ -58,3 +58,11 @@ ws.addChangeListener((e) => {
   }
   runCode();
 });
+
+const publishBtn = document.getElementById('publish-btn');
+publishBtn.addEventListener('click', () => {
+  console.log('publishing message', outputDiv.innerText);
+  window.mqttClient.publish('test/topic', outputDiv.innerText);
+});
+
+
