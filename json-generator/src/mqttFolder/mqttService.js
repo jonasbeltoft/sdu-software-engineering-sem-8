@@ -17,6 +17,7 @@ class MqttClient {
     this.connectedPromise = new Promise((resolve, reject) => {
       this.client.on('connect', () => {
         console.log('Connected to MQTT broker');
+        window.dispatchEvent(new Event('mqttClientConnected'));
         resolve();
       });
 

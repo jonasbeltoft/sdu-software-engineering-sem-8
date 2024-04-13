@@ -1,17 +1,17 @@
-import { Order } from 'blockly/javascript';
-import MqttClient from '../mqttFolder/mqttService.js'; // Import the MqttClient class
+import {Order} from 'blockly/javascript';
+import MqttClient from '../mqttFolder/mqttService.js';
+import '../mqttFolder/heartbeat.js';
 
 // Create an instance of MqttClient and connect to the MQTT broker
-// const mqttClient = new MqttClient();
-// mqttClient.connect('ws://localhost:9001')
-//     .then(() => {
-//       return mqttClient.subscribe('test/topic');
-//     }).catch((error) => {
-//       console.error('Error connecting to MQTT broker:', error);
-//     });
+const mqttClient = new MqttClient();
+mqttClient.connect('ws://localhost:9001')
+    .then(() => {
+        mqttClient.subscribe('test/topic');
+    }).catch((error) => {
+    console.error('Error connecting to MQTT broker:', error);
+});
 
-// window.mqttClient = mqttClient;
-
+window.mqttClient = mqttClient;
 
 export const forBlock = Object.create(null);
 
@@ -87,8 +87,8 @@ forBlock['esp_global_configuration'] = function (block, generator) {
 };
 
 forBlock['mqtt_subscribe'] = function (block, generator) {
-  const topic = generator.valueToCode(block, 'TOPIC', Order.NONE) || "''";
+    const topic = generator.valueToCode(block, 'TOPIC', Order.NONE) || "''";
 
-  const code = `mqttClient.subscribe(${topic});\n`;
-  return code;
+    const code = `mqttClient.subscribe(${topic});\n`;
+    return code;
 };

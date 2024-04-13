@@ -90,3 +90,21 @@ pre, code {
 #output {
     height: 30%;
 }
+
+.uid-container {
+    min-height: 25px;
+    position: absolute;
+    right: 10px;
+    width: 250px;
+    justify-content: space-between;
+    z-index: 1000;
+    border: 2px solid var(--color1);
+    border-radius: 6px;
+    display: flex;
+    padding: 5px;
+}
+
+.uid-container p {
+    margin: 0;
+    margin-right: 10px
+}
