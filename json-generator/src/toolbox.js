@@ -22,7 +22,43 @@ export const toolbox = {
       "contents": [
         {
           'kind': 'block',
-          'type': 'esp_configuration',
+          'type': 'main_configuration',
+        },
+        {
+          'kind': 'block',
+          'type': 'esp_individual_configuration',
+          'inputs': {
+            'ID': {
+            },
+            'SAMPLE_RATE': {
+              'shadow': {
+                'type': 'math_number',
+                'fields': {
+                  'NUM': 10,
+                },
+              },
+            },
+            'BATCH_SIZE': {
+              'shadow': {
+                'type': 'math_number',
+                'fields': {
+                  'NUM': 10,
+                },
+              },
+            },
+            'NO_SENSORS': {
+              'shadow': {
+                'type': 'math_number',
+                'fields': {
+                  'NUM': 2,
+                },
+              },
+            },
+          },
+        },
+        {
+          'kind': 'block',
+          'type': 'esp_global_configuration',
           'inputs': {
             'SAMPLE_RATE': {
               'shadow': {
