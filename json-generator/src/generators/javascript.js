@@ -1,16 +1,16 @@
-import {Order} from 'blockly/javascript';
+import { Order } from 'blockly/javascript';
 import MqttClient from '../mqttFolder/mqttService.js'; // Import the MqttClient class
 
 // Create an instance of MqttClient and connect to the MQTT broker
-const mqttClient = new MqttClient();
-mqttClient.connect('ws://localhost:9001')
-    .then(() => {
-      return mqttClient.subscribe('test/topic');
-    }).catch((error) => {
-      console.error('Error connecting to MQTT broker:', error);
-    });
+// const mqttClient = new MqttClient();
+// mqttClient.connect('ws://localhost:9001')
+//     .then(() => {
+//       return mqttClient.subscribe('test/topic');
+//     }).catch((error) => {
+//       console.error('Error connecting to MQTT broker:', error);
+//     });
 
-window.mqttClient = mqttClient;
+// window.mqttClient = mqttClient;
 
 
 export const forBlock = Object.create(null);
@@ -21,8 +21,8 @@ forBlock['esp_configuration'] = function (block, generator) {
   const no_sensors = generator.valueToCode(block, 'NO_SENSORS', Order.NONE) || 1000;
 
   const changeOutputForEsg = generator.provideFunction_(
-      'espConfiguration',
-      `function espConfiguration(sample_rate, batch_size, no_sensors) {
+    'espConfiguration',
+    `function espConfiguration(sample_rate, batch_size, no_sensors) {
       // Add text to the output area.
       const output = "{sample_rate:" + sample_rate + ", batch_size:" + batch_size +", no_sensors:" + no_sensors + "}";
       

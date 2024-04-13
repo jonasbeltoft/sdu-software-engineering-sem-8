@@ -12,7 +12,7 @@ import * as Blockly from 'blockly/core';
 // own custom blocks.
 const espConfiguration = {
   'type': 'esp_configuration',
-  'message0': 'Add sample rate %1 with batch size %2 and no. of sensors %3',
+  'message0': 'Sample rate: %1 Batch size: %2 Number of sensors: %3',
   'args0': [
     {
       'type': 'input_value',
@@ -30,8 +30,7 @@ const espConfiguration = {
       'check': 'Number',
     },
   ],
-  'previousStatement': null,
-  'nextStatement': null,
+  'output': null,
   'colour': 106,
   'tooltip': '',
   'helpUrl': '',
@@ -41,4 +40,4 @@ const espConfiguration = {
 // This does not register their definitions with Blockly.
 // This file has no side effects!
 export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray(
-    [espConfiguration]);
+  [espConfiguration]);
