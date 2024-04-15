@@ -1,6 +1,6 @@
 const mqtt = require('mqtt');
 
-const client = mqtt.connect('ws://localhost:9001');
+const client = mqtt.connect('ws://localhost:9002');
 
 client.on('connect', function () {
   client.subscribe('test/topic', function (err) {

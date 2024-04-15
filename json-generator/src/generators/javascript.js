@@ -4,7 +4,7 @@ import '../mqttFolder/heartbeat.js';
 
 // Create an instance of MqttClient and connect to the MQTT broker
 const mqttClient = new MqttClient();
-mqttClient.connect('ws://localhost:9001')
+mqttClient.connect('ws://localhost:9002')
     .then(() => {
         mqttClient.subscribe('test/topic');
     }).catch((error) => {

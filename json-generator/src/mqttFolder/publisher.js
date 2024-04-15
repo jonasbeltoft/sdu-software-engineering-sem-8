@@ -1,6 +1,6 @@
 const mqtt = require('mqtt');
 
-const client = mqtt.connect('ws://localhost:9001');
+const client = mqtt.connect('ws://localhost:9002');
 
 client.on('connect', function () {
     client.publish('test/topic', 'your_message', function (err) {
