@@ -1,0 +1,33 @@
+menu "Assignment 2 Configuration"
+
+    config WIFI_SSID
+        string "Wifi SSID"
+        default "Susannes-iPhone-14"
+        help
+            The SSID of the wifi
+
+    config WIFI_PASSWORD
+        string "Wifi SSID"
+        default "ppgn5428"
+        help
+            The password to the wifi
+
+    config MQTT_BROKER
+        string "MQTT BROKER Ip adress"
+        default "mqtt://192.168.156.173"
+        help
+            URL of the broker to connect to
+
+    config MQTT_COMMAND_TOPIC
+        string "Command Topic"
+        default "org/sdu/2024/iot/my/name/command"
+        help
+            The topic to send commands to
+
+    config MQTT_RESPONSE_TOPIC
+        string "Response Topic"
+        default "org/sdu/2024/iot/my/name/response"
+        help
+            The topic to publish readings/response to
+
+endmenu
