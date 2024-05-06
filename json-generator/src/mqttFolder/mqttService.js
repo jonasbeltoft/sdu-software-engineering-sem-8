@@ -33,7 +33,7 @@ class MqttClient {
   async publish(topic, message) {
     await this.connectedPromise;
     if (this.client && this.client.connected) {
-      console.log('Attempting to publish message:', message, 'to topic:', topic);
+      console.log('Attempting to publish message:', message, '\nto topic:', topic);
       this.client.publish(topic, message, (err) => {
         if (!err) {
           console.log('Message sent successfully');

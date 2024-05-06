@@ -28,13 +28,15 @@ body {
     align-items: center;
     padding-left: 10px;
 }
+
 .header p {
     margin: 0;
     color: white;
     font-weight: bold;
 }
 
-pre, code {
+pre,
+code {
     overflow: auto;
 }
 
@@ -61,13 +63,8 @@ pre, code {
     flex-direction: column;
     width: 400px;
     flex: 0 0 400px;
-    overflow: auto;
     margin: 1rem;
     justify-content: space-between;
-}
-
-.bottom-half {
-    height: 150px;
 }
 
 #publish-btn {
@@ -107,4 +104,8 @@ pre, code {
 .uid-container p {
     margin: 0;
     margin-right: 10px
+}
+
+.bottom-half {
+    padding-top: 20px;
 }

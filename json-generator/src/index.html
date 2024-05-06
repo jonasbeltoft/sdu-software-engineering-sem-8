@@ -1,38 +1,43 @@
 <!DOCTYPE html>
 <html>
-   <head>
-       <meta charset="utf-8" />
-       <title>Blockly Sample App</title>
-       <link rel="preconnect" href="https://fonts.googleapis.com">
-       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-       <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
-   </head>
-   <body>
-       <div id="pageContainer">
-           <div class="header">
-               <p><u>L</u>eading <u>I</u>nnovative <u>G</u>reen <u>M</u>onitoring <u>A</u>pproaches</p>
-           </div>
-           <div class="flex-box">
-               <div id="outputPane">
-                   <div class="uid-container">
-                       <p>Number of esps available</p>
-                       <p id="esp_count">0</p>
-                   </div>
-                   <div style="height: 80%">
-                       <pre id="generatedCode"><code></code></pre>
-                       <div>
-                           <h4>Message you're publishing:</h4>
-                           <div id="output"></div>
-                       </div>
-                   </div>
-                   <div class="bottom-half">
-                       <h4>MQTT Subscription value:</h4>
-                       <p id="subscription-output"><i>Output goes here</i></p>
-                       <button id="publish-btn">Publish</button>
-                   </div>
-               </div>
-               <div id="blocklyDiv"></div>
-           </div>
-       </div>
-   </body>
- </html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Environmental Monitoring</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="pageContainer">
+        <div class="header">
+            <p><u>L</u>eading <u>I</u>nnovative <u>G</u>reen <u>M</u>onitoring <u>A</u>pproaches</p>
+        </div>
+        <div class="flex-box">
+            <div id="outputPane">
+                <div class="uid-container">
+                    <p>Number of esps available</p>
+                    <p id="esp_count">0</p>
+                </div>
+                <div style="overflow: auto;">
+                    <div>
+                        <h4>Global Message:</h4>
+                        <pre id="global-output"></pre>
+                    </div>
+                    <div>
+                        <h4>Individual Messages:</h4>
+                        <pre id="individual-output"></pre>
+                    </div>
+                </div>
+                <div class="bottom-half">
+                    <button id="publish-btn">Publish</button>
+                    <div id="subscription-output" style="display: none;"></div>
+                </div>
+            </div>
+            <div id="blocklyDiv"></div>
+        </div>
+    </div>
+</body>
+
+</html>

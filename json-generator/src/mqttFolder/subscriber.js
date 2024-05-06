@@ -3,7 +3,7 @@ const mqtt = require('mqtt');
 const client = mqtt.connect('ws://localhost:9002');
 
 client.on('connect', function () {
-  client.subscribe('test/topic', function (err) {
+  client.subscribe('esp32/config/1', function (err) {
     if (!err) {
       console.log('Subscribed to topic');
     } else {

@@ -93,14 +93,14 @@ function removeInactiveEsp32s() {
 
 // Check for inactive ESP32s periodically
 function checkInactiveEsp32s() {
-    setInterval(function() {
+    setInterval(function () {
         console.log("Checking for inactive ESP32s")
         const now = Date.now()
         removeInactiveEsp32s()
 
         lastHeartbeats.forEach((timestamp, esp32_id) => {
             // Check if the last heartbeat was received within the timeout window (e.g., 30 seconds)
-            if (now - timestamp > 10000) {
+            if (now - timestamp > 600000) {
                 console.log('ESP32', esp32_id, 'is inactive')
                 // Remove inactive ESP32 from the list of available ESP32s
                 lastHeartbeats.delete(esp32_id)
@@ -112,7 +112,11 @@ function checkInactiveEsp32s() {
                 updateEspCount();
             }
         })
-    }, 3000) // Check every 10 seconds
+    }, 10000) // Check every 10 seconds
+}
+
+function getHeartbeats() {
+    return lastHeartbeats;
 }
 
 // Listen for the mqttClientConnected event
@@ -123,4 +127,4 @@ window.addEventListener('mqttClientConnected', function () {
     removeInactiveEsp32s();
 });
 
-module.exports = { subscribeHeartbeat, handleHeartbeatMessages, checkInactiveEsp32s };
+module.exports = { subscribeHeartbeat, handleHeartbeatMessages, checkInactiveEsp32s, getHeartbeats };

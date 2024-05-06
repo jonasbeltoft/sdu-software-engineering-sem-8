@@ -1,15 +1,15 @@
-import {Order} from 'blockly/javascript';
+import { Order } from 'blockly/javascript';
 import MqttClient from '../mqttFolder/mqttService.js';
 import '../mqttFolder/heartbeat.js';
 
 // Create an instance of MqttClient and connect to the MQTT broker
 const mqttClient = new MqttClient();
 mqttClient.connect('ws://localhost:9002')
-    .then(() => {
-        mqttClient.subscribe('test/topic');
-    }).catch((error) => {
+  .then(() => {
+    mqttClient.subscribe('test/topic');
+  }).catch((error) => {
     console.error('Error connecting to MQTT broker:', error);
-});
+  });
 
 window.mqttClient = mqttClient;
 
@@ -25,10 +25,7 @@ forBlock['main_configuration'] = function (block, generator) {
       const output = global_config;
       
       const outputDiv = document.getElementById('output');
-      const textEl = document.createElement('p');
-      textEl.innerText = output;
-      textEl.style.color = 'blue';
-      outputDiv.appendChild(textEl);
+      
     }`
   )
   // Generate the function call for this block.
@@ -47,12 +44,7 @@ forBlock['esp_individual_configuration'] = function (block, generator) {
     `function espIndividualConfiguration(id, sample_rate, batch_size, no_sensors) {
       // Add text to the output area.
       const output = "{id:" + id + ", sample_rate:" + sample_rate + ", batch_size:" + batch_size +", no_sensors:" + no_sensors + "}";
-      
-      const outputDiv = document.getElementById('output');
-      const textEl = document.createElement('p');
-      textEl.innerText = output;
-      textEl.style.color = 'sage';
-      outputDiv.appendChild(textEl);
+      global.esp_individual_config = output;
     }`
   );
 
@@ -72,12 +64,7 @@ forBlock['esp_global_configuration'] = function (block, generator) {
     `function espGlobalConfiguration(sample_rate, batch_size, no_sensors) {
       // Add text to the output area.
       const output = "{sample_rate:" + sample_rate + ", batch_size:" + batch_size +", no_sensors:" + no_sensors + "}";
-      
-      const outputDiv = document.getElementById('output');
-      const textEl = document.createElement('p');
-      textEl.innerText = output;
-      textEl.style.color = 'green';
-      outputDiv.appendChild(textEl);
+      global.esp_global_config = output;
     }`
   );
 
@@ -87,8 +74,8 @@ forBlock['esp_global_configuration'] = function (block, generator) {
 };
 
 forBlock['mqtt_subscribe'] = function (block, generator) {
-    const topic = generator.valueToCode(block, 'TOPIC', Order.NONE) || "''";
+  const topic = generator.valueToCode(block, 'TOPIC', Order.NONE) || "''";
 
-    const code = `mqttClient.subscribe(${topic});\n`;
-    return code;
+  const code = `mqttClient.subscribe(${topic});\n`;
+  return code;
 };
