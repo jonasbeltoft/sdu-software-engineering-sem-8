@@ -12,6 +12,7 @@ import { save, load } from './serialization';
 import { toolbox } from './toolbox';
 import './index.css';
 import { getHeartbeats } from './mqttFolder/heartbeat';
+import { getResponses } from './mqttFolder/responseHandler';
 
 // Register the blocks and generator with Blockly
 Blockly.common.defineBlocks(blocks);

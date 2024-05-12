@@ -109,3 +109,10 @@ code {
 .bottom-half {
     padding-top: 20px;
 }
+
+.response-div {
+    padding: 5px;
+    border: 2px solid var(--color1);
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
