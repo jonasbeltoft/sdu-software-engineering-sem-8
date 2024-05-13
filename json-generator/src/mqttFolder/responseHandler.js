@@ -19,7 +19,6 @@ function handleResponseMessages(client) {
         // Check if the topic is '/esp32/heartbeat'
         if (topic === '/device/log') {
             // Extract ESP32 ID from the message
-            console.log('Received response:', split_message);
             const msg = message.toString()
             if(msg) {
                 const split_message = msg.split(":");
