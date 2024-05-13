@@ -22,6 +22,7 @@ function handleResponseMessages(client) {
             const msg = message.toString()
             if(msg) {
                 const split_message = msg.split(":");
+                if(!split_message[1]) return;
                 const esp32_id = split_message[0];
                 const temperatures = split_message[1].split("[")[1].split("]")[0].split(",");
                 const power_used = split_message[2];

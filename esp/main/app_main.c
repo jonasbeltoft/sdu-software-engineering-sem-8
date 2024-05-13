@@ -86,6 +86,9 @@ measurement_config parseCommand(const char *configJSON)
     if (root == NULL) {
         return config;
     }
+    if (cJSON_GetArraySize(root) == 0) {
+        return config;
+    }
 
         // Extract data from parsed JSON
     cJSON *sample_rate = cJSON_GetObjectItem(root, "SAMPLE_RATE");
