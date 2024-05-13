@@ -20,25 +20,28 @@ function handleResponseMessages(client) {
         if (topic === '/device/log') {
             // Extract ESP32 ID from the message
             console.log('Received response:', split_message);
-            const split_message = message.toString().split(":");
-            const esp32_id = split_message[0];
-            const temperatures = split_message[1].split("[")[1].split("]")[0].split(",");
-            const power_used = split_message[2];
-
-            // Update the temperatureResponse and powerResponse maps
-            temperatureResponse.set(esp32_id, temperatures);
-            powerResponse.set(esp32_id, power_used);
-
-            // Get the paragraph by its ID
-            const element = document.getElementById('responses');
-            let text = "";
-            temperatureResponse.forEach((temperatures, esp32_id) => {
-                const power_used = powerResponse.get(esp32_id);
-                text += `\n ESP32 ID: ${esp32_id} \t, Temperatures: ${temperatures}\n \tPower Used: ${power_used}W\n`;
-            });
-
-            // Update the text of the paragraph
-            element.innerText = text;
+            const msg = message.toString()
+            if(msg) {
+                const split_message = msg.split(":");
+                const esp32_id = split_message[0];
+                const temperatures = split_message[1].split("[")[1].split("]")[0].split(",");
+                const power_used = split_message[2];
+    
+                // Update the temperatureResponse and powerResponse maps
+                temperatureResponse.set(esp32_id, temperatures);
+                powerResponse.set(esp32_id, power_used);
+    
+                // Get the paragraph by its ID
+                const element = document.getElementById('responses');
+                let text = "";
+                temperatureResponse.forEach((temperatures, esp32_id) => {
+                    const power_used = powerResponse.get(esp32_id);
+                    text += `\n ESP32 ID: ${esp32_id} \t, Temperatures: ${temperatures}\n \tPower Used: ${power_used}W\n`;
+                });
+    
+                // Update the text of the paragraph
+                element.innerText = text;
+            }
         }
     });
 }
