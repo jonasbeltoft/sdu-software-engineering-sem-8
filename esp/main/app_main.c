@@ -49,6 +49,9 @@ typedef struct
     int NO_SENSORS;
 } measurement_config;
 
+measurement_config config;
+
+
 static void log_error_if_nonzero(const char *message, int error_code)
 {
     if (error_code != 0)
@@ -79,7 +82,6 @@ void generate_uuid() {
 
 measurement_config parseCommand(const char *configJSON)
 {
-    measurement_config config = {0, 0, 0};
     cJSON *root = cJSON_Parse(configJSON);
     if (root == NULL) {
         return config;
@@ -101,11 +103,7 @@ measurement_config parseCommand(const char *configJSON)
     return config;
 }
 
-// void sampleTask(void *pvParameters){
-
-// }
-
-void command_handler(esp_mqtt_client_handle_t client, int SAMPLE_RATE, int BATCH_SIZE)
+void measureTemp(esp_mqtt_client_handle_t client, int SAMPLE_RATE, int BATCH_SIZE)
 {
 
     if (SAMPLE_RATE <= 0) {
@@ -137,8 +135,9 @@ void command_handler(esp_mqtt_client_handle_t client, int SAMPLE_RATE, int BATCH
     char *json_string = cJSON_Print(json_array);
 
     char mqttResp[1024];
-    sprintf(mqttResp, "%s: %s", TAG, json_string);
+    sprintf(mqttResp, "%s: %s: 420", TAG, json_string);
 
+    printf("%s", mqttResp);
     esp_mqtt_client_publish(client, "/device/log", mqttResp, 0, 0, 0);
 
     cJSON_free(json_string);
@@ -159,7 +158,7 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
 {
     ESP_LOGD(TAG, "Event dispatched from event loop base=%s, event_id=%" PRIi32 "", base, event_id);
     esp_mqtt_event_handle_t event = event_data;
-    esp_mqtt_client_handle_t client = event->client;
+    client = event->client;
     int msg_id;
     // char command_copy[event->data_len];
     switch ((esp_mqtt_event_id_t)event_id)
@@ -169,8 +168,13 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
         msg_id = esp_mqtt_client_publish(client, "/esp32/heartbeat", TAG, 0, 1, 1);
         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
 
-        msg_id = esp_mqtt_client_subscribe(client, CONFIG_MQTT_COMMAND_TOPIC, 2);
+        msg_id = esp_mqtt_client_subscribe(client, "/esp32/config", 2);
         ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
+        char selfConfig[1024] = "/esp32/config/";
+        strcat(selfConfig, TAG);
+        msg_id = esp_mqtt_client_subscribe(client, selfConfig, 2);
+        ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
+
         break;
 
     case MQTT_EVENT_DISCONNECTED:
@@ -199,9 +203,7 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
 
         // Force terminating string! (Last char is 0, which closes string)
         event->data[event->data_len] = 0;
-        measurement_config config = parseCommand(event->data);
-
-        command_handler(client, config.SAMPLE_RATE, config.BATCH_SIZE);
+        config = parseCommand(event->data);
         break;
 
     case MQTT_EVENT_ERROR:
@@ -240,8 +242,15 @@ void mqtt_task(void *pvParameters) {
 void mqtt_heartbeat() {
     while(1) {
         esp_mqtt_client_publish(client, "/esp32/heartbeat", TAG, 0, 1, 1);
-        vTaskDelay(pdMS_TO_TICKS(10000));
+        vTaskDelay(pdMS_TO_TICKS(15000));
     }
+}
+
+void measureStarter() {
+    while(1) {
+        measureTemp(client, config.SAMPLE_RATE, config.BATCH_SIZE);
+    }
+
 }
 
 void app_main(void)
@@ -253,7 +262,11 @@ void app_main(void)
 
     generate_uuid();
 
+    config.BATCH_SIZE = 10;
+    config.SAMPLE_RATE = 1;
+    config.NO_SENSORS = 1;
     
     xTaskCreate( mqtt_task, "MQTT Handler", 4096, NULL, 1, NULL);
+    xTaskCreate( measureStarter, "Temp measurement", 4096, NULL, 1, NULL);
     xTaskCreate( mqtt_heartbeat, "MQTT Heartbeat", 4096, NULL, 1, NULL);
 }
