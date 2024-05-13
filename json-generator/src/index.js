@@ -28,7 +28,7 @@ const ws = Blockly.inject('blocklyDiv', {
 const publishBtn = document.getElementById('publish-btn');
 publishBtn.addEventListener('click', async () => {
   if (global.esp_global_config !== undefined && Object.keys(global.esp_global_config).length > 0) {
-    window.mqttClient.publish('esp32/config', JSON.stringify(global.esp_global_config, null, 4));
+    window.mqttClient.publish('/esp32/config', JSON.stringify(global.esp_global_config, null, 4));
   }
   if (global.esp_individual_config !== undefined && Object.keys(global.esp_individual_config).length > 0) {
     const live_conns = getHeartbeats();
@@ -39,13 +39,13 @@ publishBtn.addEventListener('click', async () => {
         const id = conf.ID
         foundInArray.push(conf.ID);
         delete conf.ID
-        window.mqttClient.publish('esp32/config/' + id, JSON.stringify(conf, null, 4));
+        window.mqttClient.publish('/esp32/config/' + id, JSON.stringify(conf, null, 4));
       }
     })
     console.log(live_conns, foundInArray);
     live_conns.forEach((val, key) => {
       if (!foundInArray.includes(key)) {
-        window.mqttClient.publish('esp32/config/' + key, '{}')
+        window.mqttClient.publish('/esp32/config/' + key, '{}')
       }
     })
   }
